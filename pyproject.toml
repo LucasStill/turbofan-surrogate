@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "turbofan-surrogate"
+version = "0.1.0"
+description = "Neural surrogate for the ODSMR turbofan engine simulator (Flax MLP)"
+authors = [{ name = "Lucas Thil" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["turbofan", "surrogate", "world-model", "RL", "JAX", "Flax"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "jax>=0.4.30",
+    "flax>=0.8",
+]
+
+[project.optional-dependencies]
+gpu  = ["jax[cuda12]>=0.4.30"]
+demo = ["matplotlib"]
+dev  = ["pytest"]
+
+[project.urls]
+Homepage   = "https://github.com/LucasStill/turbofan-surrogate"
+Repository = "https://github.com/LucasStill/turbofan-surrogate"
+HuggingFace = "https://huggingface.co/LucasThil/turbofan-surrogate"
+
+[tool.setuptools]
+packages = ["turbofan_surrogate"]
