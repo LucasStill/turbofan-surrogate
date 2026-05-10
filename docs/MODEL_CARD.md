@@ -84,8 +84,21 @@ Even in these regimes, errors stay below 2.5 % of natural sensor scale; nothing 
 
 ## Ethical considerations
 
-The surrogate models a turbofan engine simulator developed by Safran in a research context. It is not certified for operational use in aviation. Users should not draw safety relevant conclusions from its predictions.
+The surrogate approximates a research turbofan simulator. It is not certified for operational use in aviation. Users should not draw safety relevant conclusions from its predictions.
 
 ## Citation
 
-If you use this model in published work, please cite the companion TurboSens paper (NeurIPS 2026 submission, citation TBD).
+If you use this model, please also cite the underlying ODSMR simulator it approximates:
+
+> Psaropoulos, M., Gkoutzamanis, V., Kalfas, A. I., Giannakakis, P., Razakarivony, S., Thepaut, S., & Vu, D. Q. (2025). *OpenDeckSMR* (Version 0.1) [Computer software]. https://github.com/OpenDeckLab/OpenDeckSMR
+
+```bibtex
+@software{psaropoulos2025opendecksmr,
+  author  = {Psaropoulos, M. and Gkoutzamanis, V. and Kalfas, A. I. and
+             Giannakakis, P. and Razakarivony, S. and Thepaut, S. and Vu, D. Q.},
+  title   = {{OpenDeckSMR}},
+  year    = {2025},
+  version = {0.1},
+  url     = {https://github.com/OpenDeckLab/OpenDeckSMR}
+}
+```

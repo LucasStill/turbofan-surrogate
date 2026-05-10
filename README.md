@@ -1,3 +1,17 @@
+---
+license: mit
+library_name: flax
+tags:
+  - turbofan
+  - surrogate
+  - jax
+  - flax
+  - world-model
+  - aerospace
+  - reinforcement-learning
+pipeline_tag: tabular-regression
+---
+
 # turbofan-surrogate
 
 Neural surrogate for the ODSMR turbofan engine simulator. A small Flax MLP
@@ -8,6 +22,40 @@ CPU simulator, with overall R² above 0.998 on every sensor.
 The surrogate is intended as a fast inference backend for reinforcement
 learning, world model evaluation, and any pipeline that needs to call
 ODSMR many millions of times.
+
+## Results at a glance
+
+Trained and evaluated on a 1.2 M sample dataset drawn from the TurboSens
+operating distribution (4 wear regimes × 16 contexts, ODSMR-sampled
+ground truth, 200 k held-out for evaluation).
+
+| Headline | Number |
+|---|---|
+| Variants shipped | 4 (tiny, small, default, large) |
+| Smallest variant | 19.7 k params, 78 KB on disk |
+| Largest variant | 1.06 M params, 4.1 MB on disk |
+| **Best overall R²** | **≥ 0.9999 on every sensor (large)** |
+| **Best overall nMAE (×σ)** | **0.0039 mean, 0.0057 worst-sensor (large)** |
+| **Recommended variant (default)** | R² ≥ 0.9998 on every sensor, mean nMAE 0.0055 |
+| **Throughput at batch 16 384 (V100)** | **6.1 M samples/sec (small), 3.0 M (large)** |
+| Vs ODSMR per CPU thread | **~1.6 M× faster per device** |
+| Vs per-context mean baseline | 14× to 64× lower nMAE per sensor |
+| Worst held-out sample relative error | ~2.5 % of natural sensor scale |
+| Convergence rate of training data | 99.94 % (ODSMR diverges < 0.1 %) |
+
+The trained surrogate beats the per-context mean baseline (which already
+knows the operating point) by 14× to 64×, evidence that it learned
+state-driven physics rather than per-context marginals. Hard-case
+analysis shows the worst residuals concentrate on the post-action wear
+regime (3.4× over-represented in the worst 1 %), which is exactly the
+regime where the underlying problem is most ambiguous and where action
+history matters most — a feature, not a bug, for downstream world-model
+evaluation.
+
+Full per-sensor / per-slice breakdown in
+[`reports/default_evaluation.md`](reports/default_evaluation.md);
+side-by-side variant comparison in
+[`reports/comparison.md`](reports/comparison.md).
 
 ## What it does
 
@@ -142,5 +190,23 @@ MIT. See [LICENSE](LICENSE).
 
 ## Citation
 
-If this surrogate is useful in your work, please cite the companion
-TurboSens paper (NeurIPS 2026 submission, citation TBD).
+If you use this surrogate, please also cite the underlying ODSMR
+(OpenDeckSMR) simulator it approximates:
+
+> Psaropoulos, M., Gkoutzamanis, V., Kalfas, A. I., Giannakakis, P.,
+> Razakarivony, S., Thepaut, S., & Vu, D. Q. (2025). *OpenDeckSMR*
+> (Version 0.1) [Computer software].
+> https://github.com/OpenDeckLab/OpenDeckSMR
+
+BibTeX:
+
+```bibtex
+@software{psaropoulos2025opendecksmr,
+  author = {Psaropoulos, M. and Gkoutzamanis, V. and Kalfas, A. I. and
+            Giannakakis, P. and Razakarivony, S. and Thepaut, S. and Vu, D. Q.},
+  title  = {{OpenDeckSMR}},
+  year   = {2025},
+  version = {0.1},
+  url    = {https://github.com/OpenDeckLab/OpenDeckSMR}
+}
+```
