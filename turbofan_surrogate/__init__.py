@@ -25,7 +25,11 @@ from turbofan_surrogate.model import (
     save_surrogate,
 )
 from turbofan_surrogate.inference import build_inputs, phase_to_one_hot
-from turbofan_surrogate.simulator import SurrogateSimulator
+from turbofan_surrogate.simulator import (
+    SurrogateSimulator,
+    NOMINAL_HEALTHY_STATE,
+    NOMINAL_CRUISE_CONTEXT,
+)
 from turbofan_surrogate.constants import (
     CONTEXT_NAMES,
     CONTEXT_PHASES,
@@ -43,6 +47,8 @@ __all__ = [
     "MLP",
     "Surrogate",
     "SurrogateSimulator",
+    "NOMINAL_HEALTHY_STATE",
+    "NOMINAL_CRUISE_CONTEXT",
     "load_surrogate",
     "save_surrogate",
     "build_inputs",
