@@ -97,6 +97,11 @@ def _check_inputs(states: np.ndarray, contexts: List[Dict]) -> None:
     surrogate was trained on. Predictions outside the envelope are
     arbitrary extrapolations and physically meaningless (sign flips,
     impossible magnitudes).
+
+    TODO (deferred — see docs/SURROGATE_TEAM_QUICKSTART.md "Deferred TODOs"):
+      1. add an output-side sanity check (warn if any sensor < 0)
+      2. allow validate_inputs="strict" to raise instead of warn
+      3. optional output clipping per-sensor (off by default)
     """
     states = np.asarray(states)
     # Use 0.01 slack so legitimate edge samples don't trigger.
