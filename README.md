@@ -12,6 +12,9 @@ tags:
 pipeline_tag: tabular-regression
 ---
 
+
+[HuggingFace weights for all surrogates](https://huggingface.co/LucasThil/turbofan-surrogate/tree/main).
+
 # turbofan-surrogate
 
 Neural surrogate for the ODSMR turbofan engine simulator. A small Flax MLP
